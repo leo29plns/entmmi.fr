@@ -18,7 +18,7 @@ if ($_ENV['APP_DEBUG'] === 'true') {
 # Loads YAML parser
 require('libraries' . DIRECTORY_SEPARATOR . 'Spyc.php');
 
-ClassLoader::load('Parser.php', 'Parser');
+ClassLoader::load('HtmlBuild/Parser.php', 'Parser');
 
 ClassLoader::load('Router.php', 'Router');
 Router::loadController($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

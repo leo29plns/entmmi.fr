@@ -3,14 +3,10 @@ routes:
     controller: Home->home
     method: GET
 
-  - path: /about/
+  - path: /api/ade-ics/
     method: GET
-    controller: About->about
-
-  - path: /about/instagram/
-    method: GET
-    controller: About->instagram
-
-  - path: /about/instagram/*
-    method: GET
-    controller: \About\Instagram->instagramParams
+    controller: Api->ade_ics_manual
+  
+  - path: /api/ade-ics/
+    method: POST
+    controller: Api->ade_ics

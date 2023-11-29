@@ -6,6 +6,6 @@ class Home
 {
     public function home() : void
     {
-        \Debug::dump('Je suis dans Home, méthode home');
+        \Debug::dump('Ce site web est en travaux :)');
     }
 }
