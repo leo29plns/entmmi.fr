@@ -48,8 +48,9 @@ class Router
         self::$webroot = dirname($_SERVER['PHP_SELF']);
         self::loadRoutes();
 
-        if (strlen(str_replace(DIRECTORY_SEPARATOR, '', self::$webroot)) > 0) {
-            self::$uri = str_replace(self::$webroot, '', $requestUri);
+        $webrootPos = strpos($requestUri, self::$webroot);
+        if ($webrootPos !== false) {
+            self::$uri = substr_replace($requestUri, '', $webrootPos, strlen(self::$webroot));
         }
         self::$method = $requestMethod;
 
