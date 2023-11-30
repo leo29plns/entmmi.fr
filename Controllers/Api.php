@@ -28,6 +28,15 @@ class Api
 
         if (!array_key_exists('raw_data', $data) && !array_key_exists('parsed_data', $data)) {
             $data['parsed_data'] = true;
+            $data['raw_data'] = false;
+        }
+
+        if (!array_key_exists('raw_data', $data)) {
+            $data['raw_data'] = false;
+        }
+
+        if (!array_key_exists('parsed_data', $data)) {
+            $data['parsed_data'] = false;
         }
     
         $icalUrl = $data["ical_url"];
