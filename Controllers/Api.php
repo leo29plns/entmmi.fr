@@ -88,7 +88,7 @@ class Api
 
     public function ade_ics_options() : void
     {
-        self::returnHeader('JSON', ['POST', 'OPTIONS'], '*');
+        self::returnHeader('JSON', ['POST'], '*');
     }
 
     public static function returnHeader(string $type, array $methods = [], string $origin = null) : void
