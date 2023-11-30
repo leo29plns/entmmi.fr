@@ -33,10 +33,10 @@ class IcsParser {
                 if (self::isIcsFormat($content)) {
                     $this->file = $content;
                 } else {
-                    \lightframe\Controllers\Api::apiError($this->type, 500, 'Content must be ICS.');
+                    \lightframe\Controllers\Api::apiError('JSON', 500, 'Content must be ICS.');
                 }
             } else {
-                \lightframe\Controllers\Api::apiError($this->type, 404, 'URL is not responding.');
+                \lightframe\Controllers\Api::apiError('JSON', 404, 'URL is not responding.');
             }
     
             curl_close($ch);
@@ -63,7 +63,7 @@ class IcsParser {
             if ($this->from <= $this->to) {
                 $isValid = true;
             } else {
-                \lightframe\Controllers\Api::apiError($this->type, 404, 'Timestamp must be positive (From is before To).');
+                \lightframe\Controllers\Api::apiError('JSON', 404, 'Timestamp must be positive (From is before To).');
             }
         }
     
@@ -88,7 +88,7 @@ class IcsParser {
     public function parseRawEvents() : array
     {
         if (!$this->file) {
-            \lightframe\Controllers\Api::apiError($this->type, 404, 'No file to parse.');
+            \lightframe\Controllers\Api::apiError('JSON', 404, 'No file to parse.');
         }
 
         preg_match_all('/BEGIN:VEVENT(.*?)END:VEVENT/s', $this->file, $matches);
@@ -146,7 +146,7 @@ class IcsParser {
                 if (preg_match('/^(\S+)(?:\s|$)/u', $rawEvent['DESCRIPTION'], $matches)) {
                     $this->class = $matches[1];
                 } else {
-                    \lightframe\Controllers\Api::apiError($this->type, 404, 'Unable to find class, set it manualy!');
+                    \lightframe\Controllers\Api::apiError('JSON', 404, 'Unable to find class, set it manualy!');
                 }
             }
             
@@ -250,7 +250,7 @@ class IcsParser {
             $this->parseParsedEvents();
 
             if (!$this->parsedEvents) {
-                \lightframe\Controllers\Api::apiError($this->type, 404, 'Events reconciliation can\'t match items.');
+                \lightframe\Controllers\Api::apiError('JSON', 404, 'Events reconciliation can\'t match items.');
             }
         }
 
