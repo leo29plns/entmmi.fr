@@ -33,15 +33,15 @@ class IcsParser {
                 if (self::isIcsFormat($content)) {
                     $this->file = $content;
                 } else {
-                    echo "Le contenu n'est pas au format ICS.";
+                    \lightframe\Controllers\Api::apiError($this->type, 500, 'Content must be ICS.');
                 }
             } else {
-                echo "Erreur lors de la récupération du contenu de l'URL.";
+                \lightframe\Controllers\Api::apiError($this->type, 404, 'URL is not responding.');
             }
     
             curl_close($ch);
         } else {
-            echo "L'URL n'est pas valide.";
+            \lightframe\Controllers\Api::apiError($this->type, 404, 'Invalid URL.');
         }
     }
 
@@ -63,7 +63,7 @@ class IcsParser {
             if ($this->from <= $this->to) {
                 $isValid = true;
             } else {
-                \lightframe\Controllers\Api::apiError($this->type, 404, 'Timestamp must be positive (From is before To.');
+                \lightframe\Controllers\Api::apiError($this->type, 404, 'Timestamp must be positive (From is before To).');
             }
         }
     
@@ -85,11 +85,10 @@ class IcsParser {
         $this->location = $location;
     }
 
-    public function parseRawEvents() : ?array
+    public function parseRawEvents() : array
     {
         if (!$this->file) {
-            echo "Pas de fichier à parser.";
-            return null;
+            \lightframe\Controllers\Api::apiError($this->type, 404, 'No file to parse.');
         }
 
         preg_match_all('/BEGIN:VEVENT(.*?)END:VEVENT/s', $this->file, $matches);
@@ -128,14 +127,13 @@ class IcsParser {
         return $this->rawEvents;
     }
 
-    public function parseParsedEvents() : ?array
+    public function parseParsedEvents() : array
     {
         if (!$this->rawEvents) {
             $this->parseRawEvents();
 
             if (!$this->rawEvents) {
-                echo "Pas de rawEvents à parser.";
-                return null;
+                \lightframe\Controllers\Api::apiError($this->type, 404, 'No file to parse.');
             }
         }
 
@@ -148,8 +146,7 @@ class IcsParser {
                 if (preg_match('/^(\S+)(?:\s|$)/u', $rawEvent['DESCRIPTION'], $matches)) {
                     $this->class = $matches[1];
                 } else {
-                    echo "Impossible de parser la classe automatiquement, le format est-il valide ?";
-                    return null;
+                    \lightframe\Controllers\Api::apiError($this->type, 404, 'Unable to find class, set it manualy!');
                 }
             }
             
@@ -253,8 +250,7 @@ class IcsParser {
             $this->parseParsedEvents();
 
             if (!$this->parsedEvents) {
-                echo "Pas de parsedEvents à fusionner.";
-                return null;
+                \lightframe\Controllers\Api::apiError($this->type, 404, 'Events reconciliation can\'t match items.');
             }
         }
 
