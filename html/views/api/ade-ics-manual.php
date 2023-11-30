@@ -122,9 +122,45 @@ xhr.onerror = function () {
 xhr.send(JSON.stringify(requestData));
 </pre>
 
-<br><br>
-<h2>GitHub</h2>
-<p>If you want to parse links from other universities, you can use the code provided in the GitHub repository: <a href="https://github.com/leo29plns/ics-ade-parser" target="_blank">https://github.com/leo29plns/ics-ade-parser</a>. This project is under the MIT License.</p>
+    <br><br>
+    <h2>GitHub</h2>
+    <p>If you want to parse links from other universities, you can use the code provided in the GitHub repository: <a href="https://github.com/leo29plns/ics-ade-parser" target="_blank">https://github.com/leo29plns/ics-ade-parser</a>. This project is under the MIT License.</p>
+
+    <h2>Sandbox</h2>
+    <p>Modify the data and click "Run" to test the API:</p>
+    <textarea id="sandboxData">{
+  "ical_url": "https://edt.univ-eiffel.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=4905&projectId=25&calType=ical&nbWeeks=50",
+  "raw_data": false,
+  "parsed_data": true
+}</textarea>
+    <button id="sandboxButton">Run</button>
+    <pre id="sandboxResult"></pre>
+
+    <script>
+        document.querySelector('#sandboxButton').addEventListener('click', function () {
+            var sandboxData = document.querySelector('#sandboxData').value;
+            var sandboxResult = document.querySelector('#sandboxResult');
+
+            var sandboxXhr = new XMLHttpRequest();
+            sandboxXhr.open('POST', 'https://entmmi.fr/api/ade-ics', true);
+            sandboxXhr.setRequestHeader('Content-type', 'application/json');
+
+            sandboxXhr.onload = function () {
+                if (sandboxXhr.status >= 200 && sandboxXhr.status < 300) {
+                    var response = JSON.parse(sandboxXhr.responseText);
+                    sandboxResult.textContent = JSON.stringify(response, null, 2);
+                } else {
+                    sandboxResult.textContent = 'Request failed';
+                }
+            };
+
+            sandboxXhr.onerror = function () {
+                sandboxResult.textContent = 'Request failed';
+            };
+
+            sandboxXhr.send(sandboxData);
+        });
+    </script>
 
 </body>
 </html>
