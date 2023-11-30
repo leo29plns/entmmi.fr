@@ -24,6 +24,11 @@ class Api
     
         if (!array_key_exists('ical_url', $data)) {
             self::apiError($this->type, 404, 'You must specify a calendar URL.');
+        } else {
+            $matchUrl = 'https://edt.univ-eiffel.fr/';
+            if (substr($data['ical_url'], 0, strlen($matchUrl)) !== $matchUrl) {
+                self::apiError($this->type, 404, 'Request to https://edt.univ-eiffel.fr/ only.');
+            }
         }
 
         if (!array_key_exists('raw_data', $data) && !array_key_exists('parsed_data', $data)) {
@@ -118,7 +123,7 @@ class Api
 
         switch ($responseType) {
             case 'JSON':
-                header('Content-Type: application/json');
+                self::returnHeader('JSON', ['POST'], '*');
                 echo json_encode(['error' => ['code' => $errorCode, 'message' => $errorMessage]]);
                 break;
             default:
