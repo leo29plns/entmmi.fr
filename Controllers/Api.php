@@ -86,6 +86,11 @@ class Api
         require('html' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'api' . DIRECTORY_SEPARATOR . 'ade-ics-manual.php');
     }
 
+    public function ade_ics_options() : void
+    {
+        self::returnHeader('JSON', ['POST', 'OPTIONS'], '*');
+    }
+
     public static function returnHeader(string $type, array $methods = [], string $origin = null) : void
     {
         switch ($type) {

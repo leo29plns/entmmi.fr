@@ -10,3 +10,7 @@ routes:
   - path: /api/ade-ics/
     method: POST
     controller: Api->ade_ics
+  
+  - path: /api/ade-ics/
+    method: OPTIONS
+    controller: Api->ade_ics_options
