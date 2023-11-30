@@ -48,10 +48,7 @@ class Router
         self::$webroot = dirname($_SERVER['PHP_SELF']);
         self::loadRoutes();
 
-        $webrootPos = strpos($requestUri, self::$webroot);
-        if ($webrootPos !== false) {
-            self::$uri = substr_replace($requestUri, '', $webrootPos, strlen(self::$webroot));
-        }
+        self::$uri = substr($requestUri, strlen(self::$webroot));
         self::$method = $requestMethod;
 
         $reconciliation = self::controllerReconciliation();
