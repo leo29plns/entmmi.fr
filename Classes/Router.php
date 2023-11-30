@@ -48,7 +48,7 @@ class Router
         self::$webroot = dirname($_SERVER['PHP_SELF']);
         self::loadRoutes();
 
-        self::$uri = substr($requestUri, strlen(self::$webroot));
+        self::$uri = (self::$webroot !== '/') ? substr($requestUri, strlen(self::$webroot)) : $requestUri;
         self::$method = $requestMethod;
 
         $reconciliation = self::controllerReconciliation();

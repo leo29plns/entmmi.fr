@@ -22,11 +22,12 @@ class Api
             self::apiError($this->type, 404, 'Can\'t decode JSON from ical_url.');
         }
     
-        $requiredKeys = ["ical_url", "raw_data", "parsed_data"];
-        foreach ($requiredKeys as $key) {
-            if (!array_key_exists($key, $data)) {
-                self::apiError($this->type, 404, $key . ' is missing.');
-            }
+        if (!array_key_exists('ical_url', $data)) {
+            self::apiError($this->type, 404, 'You must specify a calendar URL.');
+        }
+
+        if (!array_key_exists('raw_data', $data) && !array_key_exists('parsed_data', $data)) {
+            $data['parsed_data'] = true;
         }
     
         $icalUrl = $data["ical_url"];
@@ -73,7 +74,7 @@ class Api
 
     public function ade_ics_manual() : void
     {
-        \Debug::dump('API ADE ICS MANUAL');
+        require('html' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'api' . DIRECTORY_SEPARATOR . 'ade-ics-manual.php');
     }
 
     public static function returnHeader(string $type, array $methods = [], string $origin = null) : void
