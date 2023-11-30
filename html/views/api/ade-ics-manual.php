@@ -17,13 +17,13 @@
 
     <h2>Overview</h2>
 
-    <p>This API allows you to parse dynamic ICS calendar links from the Gustave Eiffel University ADE tool (only). This JSON api is accessible via HTTP requests, and has parameters to customize requests.</p>
+    <p>This API allows you to parse dynamic ICS calendar links from the Gustave Eiffel University ADE tool (only). This JSON API is accessible via HTTP requests and has parameters to customize requests.</p>
 
     <h2>API Endpoint</h2>
 
     <p>The API endpoint for fetching ADE iCalendar data is:</p>
 
-    <code>http://entmmi.fr/api/ade-ics</code>
+    <code>https://entmmi.fr/api/ade-ics</code>
 
     <h2>Parameters</h2>
 
@@ -50,7 +50,7 @@
     <pre>
 &lt;?php
 
-$apiUrl = 'http://entmmi.fr/api/ade-ics';
+$apiUrl = 'https://entmmi.fr/api/ade-ics';
 
 $data = array(
     'ical_url' => 'https://edt.univ-eiffel.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=4905&projectId=25&calType=ical&nbWeeks=50',
@@ -86,7 +86,7 @@ if (isset($response['error'])) {
 
     <pre>
 // Vanilla JavaScript Example
-var apiUrl = 'http://entmmi.fr/api/ade-ics';
+var apiUrl = 'https://entmmi.fr/api/ade-ics';
 
 var requestData = {
   ical_url: 'https://edt.univ-eiffel.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=4905&projectId=25&calType=ical&nbWeeks=50',
@@ -121,6 +121,10 @@ xhr.onerror = function () {
 
 xhr.send(JSON.stringify(requestData));
 </pre>
+
+<br><br>
+<h2>GitHub</h2>
+<p>If you want to parse links from other universities, you can use the code provided in the GitHub repository: <a href="https://github.com/leo29plns/ics-ade-parser" target="_blank">https://github.com/leo29plns/ics-ade-parser</a>. This project is under the MIT License.</p>
 
 </body>
 </html>
