@@ -17,7 +17,7 @@
 
     <h2>Overview</h2>
 
-    <p>This API allows you to fetch and parse iCalendar (ICS) data from ADE (Amphi, TD, Exam) schedules provided by educational institutions using a simple HTTP request. The API supports various parameters to customize your request and retrieve specific data.</p>
+    <p>This API allows you to parse dynamic ICS calendar links from the Gustave Eiffel University ADE tool (only). This JSON api is accessible via HTTP requests, and has parameters to customize requests.</p>
 
     <h2>API Endpoint</h2>
 
@@ -30,7 +30,7 @@
     <p>The API supports the following parameters:</p>
 
     <ul>
-        <li><code>ical_url</code> (<i>required</i>): The URL of the ADE iCalendar feed.</li>
+        <li><code>ical_url</code> (<i>required</i>): The URL of the ADE iCalendar feed. (WARNING: make sure that the GET nbWeeks parameter covers the entire period you want. A year is equal to 52 weeks for example.)</li>
         <li><code>raw_data</code> (<i>optional, default: <code>false</code></i>): Whether to include raw data in the response.</li>
         <li><code>parsed_data</code> (<i>optional, default: <code>true</code></i>): Whether to include parsed data in the response.</li>
         <li><code>from</code> (<i>optional</i>): Start timestamp to filter events from a specific date.</li>
