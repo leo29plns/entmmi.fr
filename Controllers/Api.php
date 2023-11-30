@@ -119,8 +119,6 @@ class Api
     }
 
     public static function apiError($responseType, $errorCode, $errorMessage) {
-        http_response_code($errorCode);
-
         switch ($responseType) {
             case 'JSON':
                 self::returnHeader('JSON', ['POST'], '*');
