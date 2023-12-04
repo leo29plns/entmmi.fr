@@ -240,6 +240,10 @@ class IcsParser {
             }
         }
 
+        if (array_key_exists('UID', $rawEvent)) {
+            $events[$rawEventIndex]['uid'] = $rawEvent['UID'];
+        }
+
         $this->parsedEvents = $events;
         return $this->parsedEvents;
     }
